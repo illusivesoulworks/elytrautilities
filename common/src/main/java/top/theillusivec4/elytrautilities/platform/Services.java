@@ -21,6 +21,7 @@
 
 package top.theillusivec4.elytrautilities.platform;
 
+import java.util.NoSuchElementException;
 import java.util.ServiceLoader;
 import top.theillusivec4.elytrautilities.Constants;
 import top.theillusivec4.elytrautilities.platform.services.IElytraBridge;
@@ -32,10 +33,13 @@ public class Services {
   public static final IElytraBridge ELYTRA_BRIDGE = load(IElytraBridge.class);
 
   public static <T> T load(Class<T> clazz) {
-    final T loadedService = ServiceLoader.load(clazz)
-        .findFirst()
-        .orElseThrow(
-            () -> new NullPointerException("Failed to load service for " + clazz.getName()));
+    T loadedService = null;
+
+    try {
+      loadedService = ServiceLoader.load(clazz).iterator().next();
+    } catch (NoSuchElementException e) {
+      Constants.LOG.error("Failed to load service for " + clazz.getName());
+    }
     Constants.LOG.debug("Loaded {} for service {}", loadedService, clazz);
     return loadedService;
   }

@@ -24,14 +24,13 @@
       ]
     },
     "mixins": [
-      "elytrautilities.mixins.json",
-      "elytrautilities.fabric.mixins.json"
+      "elytrautilities.mixins.json"
     ],
     "depends": {
       "fabricloader": ">=0.13",
       "fabric": "*",
-      "minecraft": "1.18.x",
-      "java": ">=17"
+      "minecraft": "1.16.x",
+      "java": ">=8"
     }
   }
   

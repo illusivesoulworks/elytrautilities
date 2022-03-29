@@ -1,0 +1,7 @@
+{
+  "elytrautilities.enableFlight": "Elytra Flight Enabled",
+  "elytrautilities.disableFlight": "Elytra Flight Disabled",
+  "key.elytrautilities.category": "Elytra Utilities",
+  "key.elytrautilities.toggle.desc": "Toggle Elytra Flight",
+  "key.elytrautilities.trigger.desc": "Trigger Elytra Flight"
+}

@@ -21,7 +21,6 @@
 
 package top.theillusivec4.elytrautilities.client;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
@@ -79,10 +78,9 @@ public class ClientEvents {
 
     if (player != null) {
       final boolean canFly = !ClientFlightController.isFlightDisabled() &&
-          !player.getAbilities().flying &&
-              !player.isPassenger() && !player.onClimbable() && !player.isFallFlying() &&
-              !player.isInWater() && !player.hasEffect(MobEffects.LEVITATION) &&
-              Services.ELYTRA_BRIDGE.canFly(player);
+          !player.abilities.flying && !player.isPassenger() && !player.onClimbable() &&
+          !player.isFallFlying() && !player.isInWater() &&
+          !player.hasEffect(MobEffects.LEVITATION) && Services.ELYTRA_BRIDGE.canFly(player);
 
       if (canFly) {
 
@@ -134,7 +132,7 @@ public class ClientEvents {
   public static void renderIcon(PoseStack poseStack) {
 
     if (ClientServices.CLIENT_CONFIG.canRenderIcon() && ClientFlightController.isFlightDisabled()) {
-      RenderSystem.setShaderTexture(0, DISABLED_ICON);
+      Minecraft.getInstance().getTextureManager().bind(DISABLED_ICON);
       GuiComponent.blit(poseStack, 2, 2, 0, 0, 24, 24, 24, 24);
     }
   }

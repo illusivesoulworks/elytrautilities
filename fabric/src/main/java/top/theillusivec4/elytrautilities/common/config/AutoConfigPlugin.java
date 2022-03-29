@@ -23,7 +23,7 @@ package top.theillusivec4.elytrautilities.common.config;
 
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
-import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screen.Screen;
 
 public class AutoConfigPlugin {
 

@@ -21,10 +21,10 @@
 
 package top.theillusivec4.elytrautilities.common.config;
 
-import blue.endless.jankson.Comment;
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
+import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.Comment;
 import top.theillusivec4.elytrautilities.Constants;
 
 @Config(name = Constants.MOD_ID)

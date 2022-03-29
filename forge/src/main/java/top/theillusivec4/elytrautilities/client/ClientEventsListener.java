@@ -21,20 +21,19 @@
 
 package top.theillusivec4.elytrautilities.client;
 
-import net.minecraftforge.client.event.MovementInputUpdateEvent;
+import net.minecraftforge.client.event.InputUpdateEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
-import net.minecraftforge.client.gui.ForgeIngameGui;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
-@SuppressWarnings("unused")
 public class ClientEventsListener {
 
   public static void setup() {
     MinecraftForge.EVENT_BUS.register(new ClientEventsListener());
   }
 
+  @SuppressWarnings("unused")
   @SubscribeEvent
   public void clientTick(final TickEvent.ClientTickEvent evt) {
 
@@ -43,15 +42,17 @@ public class ClientEventsListener {
     }
   }
 
+  @SuppressWarnings("unused")
   @SubscribeEvent
-  public void input(final MovementInputUpdateEvent evt) {
-    ClientEvents.triggerFlight(evt.getPlayer(), evt.getInput());
+  public void input(final InputUpdateEvent evt) {
+    ClientEvents.triggerFlight(evt.getPlayer(), evt.getMovementInput());
   }
 
+  @SuppressWarnings("unused")
   @SubscribeEvent
-  public void onRenderGameOverlay(final RenderGameOverlayEvent.PostLayer evt) {
+  public void onRenderGameOverlay(final RenderGameOverlayEvent.Post evt) {
 
-    if (evt.getOverlay() == ForgeIngameGui.POTION_ICONS_ELEMENT) {
+    if (evt.getType() == RenderGameOverlayEvent.ElementType.POTION_ICONS) {
       ClientEvents.renderIcon(evt.getMatrixStack());
     }
   }

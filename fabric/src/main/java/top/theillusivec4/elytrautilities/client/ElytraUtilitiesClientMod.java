@@ -26,11 +26,26 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.item.ElytraItem;
+import net.minecraft.item.ItemStack;
 import top.theillusivec4.elytrautilities.common.config.AutoConfigPlugin;
+import top.theillusivec4.elytrautilities.common.integration.CaelusPlugin;
 
 public class ElytraUtilitiesClientMod implements ClientModInitializer {
 
   public static boolean isConfigLoaded = false;
+  public static boolean isCaelusLoaded = false;
+
+  public static boolean canFly(final ClientPlayerEntity player) {
+
+    if (isCaelusLoaded) {
+      return CaelusPlugin.canFly(player);
+    }
+    ItemStack stack = player.getEquippedStack(EquipmentSlot.CHEST);
+    return stack.getItem() instanceof ElytraItem && ElytraItem.isUsable(stack);
+  }
 
   @Override
   public void onInitializeClient() {
@@ -38,6 +53,7 @@ public class ElytraUtilitiesClientMod implements ClientModInitializer {
     ClientTickEvents.END_WORLD_TICK.register(world -> ClientEvents.clientTick());
     HudRenderCallback.EVENT.register(
         (matrixStack, tickDelta) -> ClientEvents.renderIcon(matrixStack));
+    isCaelusLoaded = FabricLoader.getInstance().isModLoaded("caelus");
     // Config
     isConfigLoaded = FabricLoader.getInstance().isModLoaded("cloth-config2");
 

@@ -40,8 +40,8 @@ public abstract class PlayerMixin extends LivingEntity {
 
   @Inject(at = @At("HEAD"), method = "tryToStartFallFlying", cancellable = true)
   private void elytrautilities$tryToStartFallFlying(CallbackInfoReturnable<Boolean> cir) {
-
-    if (this.getLevel().isClientSide() && ClientFlightController.isFlightDisabled()) {
+    System.out.println("trying to start fall flying");
+    if (this.level.isClientSide() && ClientFlightController.isFlightDisabled()) {
       cir.setReturnValue(false);
     }
   }
