@@ -23,6 +23,7 @@ package top.theillusivec4.elytrautilities;
 
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.IExtensionPoint;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -36,8 +37,11 @@ import top.theillusivec4.elytrautilities.common.ConfigReader;
 @Mod(Constants.MOD_ID)
 public class ElytraUtilitiesMod {
 
+  public static boolean isCaelusLoaded = false;
+
   public ElytraUtilitiesMod() {
     IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+    isCaelusLoaded = ModList.get().isLoaded("caelus");
     modEventBus.addListener(this::clientSetup);
     ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ConfigReader.CLIENT_SPEC);
     ModLoadingContext.get().registerExtensionPoint(IExtensionPoint.DisplayTest.class,

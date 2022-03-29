@@ -40,6 +40,10 @@ subprojects {
             name = 'Mod Menu'
             url = 'https://maven.terraformersmc.com/'
         }
+        maven {
+            name = 'Caelus'
+            url = 'https://maven.theillusivec4.top/'
+        }
     }
 
     tasks.withType(JavaCompile).configureEach {

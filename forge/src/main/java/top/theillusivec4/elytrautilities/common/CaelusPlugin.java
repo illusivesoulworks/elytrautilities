@@ -19,22 +19,14 @@
  *
  */
 
-package top.theillusivec4.elytrautilities.platform;
+package top.theillusivec4.elytrautilities.common;
 
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.player.Player;
-import top.theillusivec4.elytrautilities.ElytraUtilitiesMod;
-import top.theillusivec4.elytrautilities.common.CaelusPlugin;
-import top.theillusivec4.elytrautilities.platform.services.IElytraBridge;
+import net.minecraft.world.entity.LivingEntity;
+import top.theillusivec4.caelus.api.CaelusApi;
 
-public class ForgeElytraBridge implements IElytraBridge {
+public class CaelusPlugin {
 
-  @Override
-  public boolean canFly(Player player) {
-
-    if (ElytraUtilitiesMod.isCaelusLoaded) {
-      return CaelusPlugin.canFly(player);
-    }
-    return player.getItemBySlot(EquipmentSlot.CHEST).canElytraFly(player);
+  public static boolean canFly(final LivingEntity livingEntity) {
+    return CaelusApi.getInstance().canFly(livingEntity);
   }
 }
