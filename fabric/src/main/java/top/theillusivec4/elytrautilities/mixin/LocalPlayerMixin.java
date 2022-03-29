@@ -22,14 +22,34 @@
 package top.theillusivec4.elytrautilities.mixin;
 
 import net.minecraft.client.player.LocalPlayer;
+import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import top.theillusivec4.elytrautilities.client.ClientEvents;
+import top.theillusivec4.elytrautilities.client.ClientFlightController;
 
-@Mixin(LocalPlayer.class)
+@Mixin(value = LocalPlayer.class, priority = 900)
 public class LocalPlayerMixin {
+
+  @ModifyVariable(
+      at = @At(
+          target = "net/minecraft/client/player/Input.jumping:Z",
+          value = "FIELD",
+          opcode = Opcodes.GETFIELD,
+          ordinal = 2),
+      method = "aiStep",
+      ordinal = 4)
+  private boolean elytrautilities$aiStep(boolean flag7) {
+
+    if (ClientFlightController.isFlightDisabled()) {
+      return true;
+    } else {
+      return flag7;
+    }
+  }
 
   @SuppressWarnings("ConstantConditions")
   @Inject(

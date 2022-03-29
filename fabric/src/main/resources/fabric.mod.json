@@ -24,7 +24,6 @@
       ]
     },
     "mixins": [
-      "elytrautilities.mixins.json",
       "elytrautilities.fabric.mixins.json"
     ],
     "depends": {

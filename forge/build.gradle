@@ -26,7 +26,7 @@ archivesBaseName = "${mod_id}-forge"
 mixin {
     add sourceSets.main, "${mod_id}.refmap.json"
 
-    config "${mod_id}.mixins.json"
+    config "${mod_id}.forge.mixins.json"
 }
 
 minecraft {
@@ -46,7 +46,7 @@ minecraft {
             taskName 'Client'
             property 'mixin.env.remapRefMap', 'true'
             property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
-            args "-mixin.config=${mod_id}.mixins.json"
+            args "-mixin.config=${mod_id}.forge.mixins.json"
             mods {
                 modClientRun {
                     source sourceSets.main
@@ -61,7 +61,7 @@ minecraft {
             taskName 'Server'
             property 'mixin.env.remapRefMap', 'true'
             property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
-            args "-mixin.config=${mod_id}.mixins.json"
+            args "-mixin.config=${mod_id}.forge.mixins.json"
             mods {
                 modServerRun {
                     source sourceSets.main

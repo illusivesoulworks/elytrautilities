@@ -21,28 +21,30 @@
 
 package top.theillusivec4.elytrautilities.mixin;
 
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
+import net.minecraft.client.player.LocalPlayer;
+import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import top.theillusivec4.elytrautilities.client.ClientFlightController;
 
-@Mixin(Player.class)
-public abstract class PlayerMixin extends LivingEntity {
+@Mixin(value = LocalPlayer.class, priority = 900)
+public class LocalPlayerMixin {
 
-  protected PlayerMixin(EntityType<? extends LivingEntity> $$0, Level $$1) {
-    super($$0, $$1);
-  }
+  @ModifyVariable(
+      at = @At(
+          target = "net/minecraft/client/player/Input.jumping:Z",
+          value = "FIELD",
+          opcode = Opcodes.GETFIELD,
+          ordinal = 2),
+      method = "aiStep",
+      ordinal = 5)
+  private boolean elytrautilities$aiStep(boolean flag7) {
 
-  @Inject(at = @At("HEAD"), method = "tryToStartFallFlying", cancellable = true)
-  private void elytrautilities$tryToStartFallFlying(CallbackInfoReturnable<Boolean> cir) {
-
-    if (this.getLevel().isClientSide() && ClientFlightController.isFlightDisabled()) {
-      cir.setReturnValue(false);
+    if (ClientFlightController.isFlightDisabled()) {
+      return true;
+    } else {
+      return flag7;
     }
   }
 }
