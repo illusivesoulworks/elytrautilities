@@ -2,6 +2,7 @@ buildscript {
     repositories {
         maven { url = 'https://maven.minecraftforge.net' }
         maven { url = 'https://repo.spongepowered.org/repository/maven-public/' }
+        maven { url = 'https://plugins.gradle.org/m2/' }
         maven {
             name = 'ParchmentMC'
             url = 'https://maven.parchmentmc.org/'
@@ -10,12 +11,14 @@ buildscript {
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
+        classpath group: 'gradle.plugin.com.matthewprenger', name: 'CurseGradle', version: '1.4.0'
 		classpath group: 'org.parchmentmc', name: 'librarian', version: '1.+'
         classpath group: 'org.spongepowered', name: 'mixingradle', version: '0.7-SNAPSHOT'
     }
 }
 apply plugin: 'java'
 apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'com.matthewprenger.cursegradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 apply plugin: 'org.parchmentmc.librarian.forgegradle'
@@ -88,7 +91,7 @@ minecraft {
 }
 
 sourceSets.main.resources.srcDir 'src/generated/resources'
-sourceSets.main.resources.srcDir '../.docs'
+sourceSets.main.resources.srcDir '../.gpl'
 
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
@@ -102,6 +105,9 @@ tasks.withType(JavaCompile) {
 }
 
 processResources {
+    from("../CHANGELOG.md")
+    from("../LICENSE")
+    from("../README.md")
     from project(":common").sourceSets.main.resources
     inputs.property "version", project.version
 
@@ -129,6 +135,21 @@ publishing {
     repositories {
         maven {
             url "file://" + System.getenv("local_maven")
+        }
+    }
+}
+
+curseforge {
+
+    project {
+        apiKey = findProperty('curseKey') ?: 0
+        id = "${forge_curse_id}"
+        releaseType = "${curse_release}"
+        changelogType = 'text'
+        changelog = "Changelog: https://github.com/TheIllusiveC4/ElytraUtilities/CHANGELOG#{$changelog}"
+        addArtifact(sourcesJar)
+        "${curse_versions}".split(',').each {
+            addGameVersion "${it}"
         }
     }
 }
