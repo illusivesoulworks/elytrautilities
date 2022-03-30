@@ -97,7 +97,7 @@ curseforge {
         id = "${fabric_curse_id}"
         releaseType = "${curse_release}"
         changelogType = 'text'
-        changelog = "Changelog: https://github.com/TheIllusiveC4/ElytraUtilities/CHANGELOG#{$changelog}"
+        changelog = "Changelog: https://github.com/TheIllusiveC4/ElytraUtilities/blob/${changelog_link}"
         addGameVersion "Java 17"
         addGameVersion "Fabric"
         addArtifact(sourcesJar)

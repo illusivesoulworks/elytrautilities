@@ -146,7 +146,7 @@ curseforge {
         id = "${forge_curse_id}"
         releaseType = "${curse_release}"
         changelogType = 'text'
-        changelog = "Changelog: https://github.com/TheIllusiveC4/ElytraUtilities/CHANGELOG#${changelog}"
+        changelog = "Changelog: https://github.com/TheIllusiveC4/ElytraUtilities/blob/${changelog_link}"
         addArtifact(sourcesJar)
         "${curse_versions}".split(',').each {
             addGameVersion "${it}"
