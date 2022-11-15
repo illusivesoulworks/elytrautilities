@@ -37,4 +37,12 @@ public class ConfigReader implements ConfigData {
   @ConfigEntry.Gui.Tooltip
   @Comment(Constants.Config.RENDER_ICON_DESC)
   public boolean toggleIcon = true;
+
+  @ConfigEntry.Gui.Tooltip
+  @Comment(Constants.Config.ENABLE_ELYTRA_DESC)
+  public boolean enableElytra = true;
+
+  @ConfigEntry.Gui.Tooltip
+  @Comment(Constants.Config.ENABLE_JUMP_TRIGGER)
+  public boolean jumpTriggerable = true;
 }

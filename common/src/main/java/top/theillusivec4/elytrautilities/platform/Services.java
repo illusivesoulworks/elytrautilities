@@ -24,11 +24,9 @@ package top.theillusivec4.elytrautilities.platform;
 import java.util.ServiceLoader;
 import top.theillusivec4.elytrautilities.Constants;
 import top.theillusivec4.elytrautilities.platform.services.IElytraBridge;
-import top.theillusivec4.elytrautilities.platform.services.IPlatform;
 
 public class Services {
 
-  public static final IPlatform PLATFORM = load(IPlatform.class);
   public static final IElytraBridge ELYTRA_BRIDGE = load(IElytraBridge.class);
 
   public static <T> T load(Class<T> clazz) {

@@ -24,20 +24,24 @@ package top.theillusivec4.elytrautilities.client;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.entity.player.Player;
 import top.theillusivec4.elytrautilities.Constants;
+import top.theillusivec4.elytrautilities.platform.ClientServices;
 
 public class ClientFlightController {
 
-  private static boolean flightEnabled = true;
-
   public static boolean isFlightDisabled() {
-    return !flightEnabled;
+    return !ClientServices.CLIENT_CONFIG.isElytraEnabled();
+  }
+
+  public static void setFlightEnabled(boolean state) {
+    ClientServices.CLIENT_CONFIG.setElytraEnabled(state);
   }
 
   public static void toggleFlight(Player player) {
     TranslatableComponent text;
-    flightEnabled = !flightEnabled;
+    boolean state = !ClientServices.CLIENT_CONFIG.isElytraEnabled();
+    ClientServices.CLIENT_CONFIG.setElytraEnabled(state);
 
-    if (flightEnabled) {
+    if (state) {
       text = new TranslatableComponent(Constants.MOD_ID + ".enableFlight");
     } else {
       text = new TranslatableComponent(Constants.MOD_ID + ".disableFlight");

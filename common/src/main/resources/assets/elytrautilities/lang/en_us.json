@@ -8,5 +8,9 @@
   "text.autoconfig.elytrautilities.option.simpleTakeoff": "Simple Takeoff",
   "text.autoconfig.elytrautilities.option.simpleTakeoff.@Tooltip": "Set to true to enable holding down the Trigger Elytra keybind to automatically use a firework from inventory to takeoff from ground level",
   "text.autoconfig.elytrautilities.option.toggleIcon": "Toggle Icon",
-  "text.autoconfig.elytrautilities.option.toggleIcon.@Tooltip": "Set to true to enable an icon that appears on the HUD when elytra flight is disabled"
+  "text.autoconfig.elytrautilities.option.toggleIcon.@Tooltip": "Set to true to enable an icon that appears on the HUD when elytra flight is disabled",
+  "text.autoconfig.elytrautilities.option.enableElytra": "Enable Elytra",
+  "text.autoconfig.elytrautilities.option.enableElytra.@Tooltip": "Set to true to enable elytra flight as normal, false to disable elytra flight. This can also be managed in-game through the \"Toggle Elytra\" keybinding.",
+  "text.autoconfig.elytrautilities.option.jumpTriggerable": "Jump Triggerable",
+  "text.autoconfig.elytrautilities.option.jumpTriggerable.@Tooltip": "Set to true to enable jump triggering the elytra while falling as normal, false to disable."
 }

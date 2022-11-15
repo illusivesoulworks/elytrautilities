@@ -25,4 +25,6 @@ public class Config {
 
   public static boolean simpleTakeoff = true;
   public static boolean toggleIcon = true;
+  public static boolean enableElytra = true;
+  public static boolean jumpTriggerable = true;
 }

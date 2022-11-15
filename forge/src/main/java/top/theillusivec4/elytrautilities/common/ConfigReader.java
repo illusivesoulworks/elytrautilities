@@ -42,6 +42,8 @@ public class ConfigReader {
 
     public final ForgeConfigSpec.BooleanValue toggleIcon;
     public final ForgeConfigSpec.BooleanValue simpleTakeoff;
+    public final ForgeConfigSpec.BooleanValue enableElytra;
+    public final ForgeConfigSpec.BooleanValue jumpTriggerable;
 
     Client(ForgeConfigSpec.Builder builder) {
 
@@ -51,6 +53,10 @@ public class ConfigReader {
           .translation(CONFIG_PREFIX + "toggleIcon").define("toggleIcon", true);
       simpleTakeoff = builder.comment(Constants.Config.SIMPLE_TAKEOFF_DESC)
           .translation(CONFIG_PREFIX + "simpleTakeoff").define("simpleTakeoff", true);
+      enableElytra = builder.comment(Constants.Config.ENABLE_ELYTRA_DESC)
+          .translation(CONFIG_PREFIX + "enableElytra").define("enableElytra", true);
+      jumpTriggerable = builder.comment(Constants.Config.ENABLE_JUMP_TRIGGER)
+          .translation(CONFIG_PREFIX + "jumpTriggerable").define("jumpTriggerable", true);
 
       builder.pop();
     }

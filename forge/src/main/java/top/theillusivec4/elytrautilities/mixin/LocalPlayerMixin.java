@@ -27,6 +27,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import top.theillusivec4.elytrautilities.client.ClientFlightController;
+import top.theillusivec4.elytrautilities.platform.ClientServices;
 
 @Mixin(value = LocalPlayer.class, priority = 900)
 public class LocalPlayerMixin {
@@ -41,7 +42,7 @@ public class LocalPlayerMixin {
       ordinal = 5)
   private boolean elytrautilities$aiStep(boolean flag7) {
 
-    if (ClientFlightController.isFlightDisabled()) {
+    if (ClientFlightController.isFlightDisabled() || !ClientServices.CLIENT_CONFIG.isJumpTriggerable()) {
       return true;
     } else {
       return flag7;

@@ -26,4 +26,10 @@ public interface IClientConfig {
   boolean canSimpleTakeoff();
 
   boolean canRenderIcon();
+
+  boolean isJumpTriggerable();
+
+  boolean isElytraEnabled();
+
+  void setElytraEnabled(boolean state);
 }

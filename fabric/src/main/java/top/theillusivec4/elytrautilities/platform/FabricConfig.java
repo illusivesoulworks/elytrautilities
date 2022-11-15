@@ -21,6 +21,7 @@
 
 package top.theillusivec4.elytrautilities.platform;
 
+import top.theillusivec4.elytrautilities.common.config.AutoConfigPlugin;
 import top.theillusivec4.elytrautilities.common.config.Config;
 import top.theillusivec4.elytrautilities.platform.services.IClientConfig;
 
@@ -34,5 +35,20 @@ public class FabricConfig implements IClientConfig {
   @Override
   public boolean canRenderIcon() {
     return Config.toggleIcon;
+  }
+
+  @Override
+  public boolean isJumpTriggerable() {
+    return Config.jumpTriggerable;
+  }
+
+  @Override
+  public boolean isElytraEnabled() {
+    return Config.enableElytra;
+  }
+
+  @Override
+  public void setElytraEnabled(boolean state) {
+    AutoConfigPlugin.setEnableElytra(state);
   }
 }

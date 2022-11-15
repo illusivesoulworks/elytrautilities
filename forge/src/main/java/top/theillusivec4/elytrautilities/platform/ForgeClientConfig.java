@@ -35,4 +35,20 @@ public class ForgeClientConfig implements IClientConfig {
   public boolean canRenderIcon() {
     return ConfigReader.CLIENT.toggleIcon.get();
   }
+
+  @Override
+  public boolean isJumpTriggerable() {
+    return ConfigReader.CLIENT.jumpTriggerable.get();
+  }
+
+  @Override
+  public boolean isElytraEnabled() {
+    return ConfigReader.CLIENT.enableElytra.get();
+  }
+
+  @Override
+  public void setElytraEnabled(boolean state) {
+    ConfigReader.CLIENT.enableElytra.set(state);
+    ConfigReader.CLIENT.enableElytra.save();
+  }
 }

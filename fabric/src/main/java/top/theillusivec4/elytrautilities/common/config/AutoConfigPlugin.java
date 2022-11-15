@@ -37,6 +37,14 @@ public class AutoConfigPlugin {
   public static void bake() {
     Config.simpleTakeoff = configReader.simpleTakeoff;
     Config.toggleIcon = configReader.toggleIcon;
+    Config.enableElytra = configReader.enableElytra;
+    Config.jumpTriggerable = configReader.jumpTriggerable;
+  }
+
+  public static void setEnableElytra(boolean state) {
+    configReader.enableElytra = state;
+    Config.enableElytra = state;
+    AutoConfig.getConfigHolder(ConfigReader.class).save();
   }
 
   public static Screen getConfigScreen(Screen screen) {
