@@ -1,28 +1,31 @@
 buildscript {
     repositories {
         maven { url = 'https://maven.minecraftforge.net' }
-        maven { url = 'https://repo.spongepowered.org/repository/maven-public/' }
         maven { url = 'https://plugins.gradle.org/m2/' }
         maven {
             name = 'ParchmentMC'
             url = 'https://maven.parchmentmc.org/'
         }
+        maven {
+            name = 'Sponge / Mixin'
+            url = 'https://repo.spongepowered.org/repository/maven-public/'
+        }
         mavenCentral()
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
-        classpath group: 'gradle.plugin.com.matthewprenger', name: 'CurseGradle', version: '1.4.0'
-		classpath group: 'org.parchmentmc', name: 'librarian', version: '1.+'
+        classpath group: 'org.parchmentmc', name: 'librarian', version: '1.+'
         classpath group: 'org.spongepowered', name: 'mixingradle', version: '0.7-SNAPSHOT'
+        classpath group: 'gradle.plugin.com.matthewprenger', name: 'CurseGradle', version: '1.4.0'
     }
 }
 apply plugin: 'java'
 apply plugin: 'net.minecraftforge.gradle'
-apply plugin: 'com.matthewprenger.cursegradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
-apply plugin: 'org.parchmentmc.librarian.forgegradle'
 apply plugin: 'org.spongepowered.mixin'
+apply plugin: 'org.parchmentmc.librarian.forgegradle'
+apply plugin: 'com.matthewprenger.cursegradle'
 
 archivesBaseName = "${mod_id}-forge"
 
@@ -34,7 +37,7 @@ mixin {
 
 minecraft {
     mappings channel: 'parchment', version: "${forge_parchment_version}"
-    
+
     if (project.hasProperty('forge_ats_enabled') && project.findProperty('forge_ats_enabled').toBoolean()) {
         // This location is hardcoded in Forge and can not be changed.
         // https://github.com/MinecraftForge/MinecraftForge/blob/be1698bb1554f9c8fa2f58e32b9ab70bc4385e60/fmlloader/src/main/java/net/minecraftforge/fml/loading/moddiscovery/ModFile.java#L123
@@ -80,6 +83,7 @@ minecraft {
             taskName 'Data'
             property 'mixin.env.remapRefMap', 'true'
             property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
+            args "-mixin.config=${mod_id}.forge.mixins.json"
             mods {
                 modDataRun {
                     source sourceSets.main
@@ -91,37 +95,64 @@ minecraft {
 }
 
 sourceSets.main.resources.srcDir 'src/generated/resources'
-sourceSets.main.resources.srcDir '../.gpl'
 
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
     compileOnly project(":common")
     annotationProcessor 'org.spongepowered:mixin:0.8.4-SNAPSHOT:processor'
+
     implementation fg.deobf("top.theillusivec4.caelus:caelus-forge:${caelus_version}")
+    implementation fg.deobf(group: 'com.illusivesoulworks.spectrelib', name: 'spectrelib-forge', version: "${spectrelib_range}")
+    jarJar fg.deobf(group: 'com.illusivesoulworks.spectrelib', name: 'spectrelib-forge', version: "${spectrelib_range}") {
+        jarJar.pin(it, "${spectrelib_version}")
+    }
 }
 
 tasks.withType(JavaCompile) {
     source(project(":common").sourceSets.main.allSource)
 }
 
+sourceSets {
+    main {
+        resources {
+            srcDirs += '../licenses'
+        }
+    }
+}
+
+def replaceResources = tasks.register("replaceResources", Copy) {
+    it.outputs.upToDateWhen { false }
+
+    it.from(sourceSets.main.resources) {
+        include "META-INF/mods.toml"
+        expand 'version': version, 'forge_mc_version_range': forge_mc_version_range, 'forge_version_range': forge_version_range,
+                'license': license, 'mod_id': mod_id, 'mod_author': mod_author, 'mod_description': mod_description,
+                'mod_name': mod_name, 'issue_tracker': issue_tracker
+    }
+    it.from(project(":common").sourceSets.main.resources) {
+        include "pack.mcmeta"
+        expand 'mod_name': mod_name
+    }
+    it.into "$buildDir/resources/main/"
+}
+
 processResources {
-    from("../CHANGELOG.md")
-    from("../LICENSE")
-    from("../README.md")
     from project(":common").sourceSets.main.resources
-    inputs.property "version", project.version
+    duplicatesStrategy(DuplicatesStrategy.FAIL)
+    exclude('META-INF/mods.toml')
+    exclude('pack.mcmeta')
 
     filesMatching('*.mixins.json') {
         expand "refmap_target": "${mod_id}."
     }
-
-    filesMatching("META-INF/mods.toml") {
-        expand "version": project.version
-    }
+    configure { finalizedBy(replaceResources) }
 }
 
-
 jar.finalizedBy('reobfJar')
+
+reobf {
+    jarJar {}
+}
 
 publishing {
     publications {
@@ -139,16 +170,29 @@ publishing {
     }
 }
 
-curseforge {
+tasks.jarJar.configure {
+    archiveClassifier.set("")
+    from(rootProject.file("LICENSE"))
+    from(rootProject.file("COPYING"))
+    from(rootProject.file("COPYING.LESSER"))
+    from(rootProject.file("README.md"))
+    from(rootProject.file("CHANGELOG.md"))
+}
 
+jarJar {
+    enable()
+}
+
+curseforge {
     project {
         apiKey = findProperty('curseKey') ?: 0
-        id = "${forge_curse_id}"
-        releaseType = "${curse_release}"
-        changelogType = 'text'
-        changelog = "Changelog: https://github.com/TheIllusiveC4/ElytraUtilities/blob/${changelog_link}"
+        id = "${cf_forge_id}"
+        releaseType = "${cf_release}"
+        changelogType = 'markdown'
+        changelog = file("../CHANGELOG_LATEST.md")
+        mainArtifact(file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar"))
         addArtifact(sourcesJar)
-        "${curse_versions}".split(',').each {
+        "${cf_versions}".split(',').each {
             addGameVersion "${it}"
         }
     }

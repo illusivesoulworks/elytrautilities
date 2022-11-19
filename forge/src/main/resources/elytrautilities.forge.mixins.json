@@ -1,13 +1,14 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "top.theillusivec4.elytrautilities.mixin",
+  "package": "com.illusivesoulworks.elytrautilities.mixin",
   "compatibilityLevel": "JAVA_17",
+  "mixins": [
+  ],
   "client": [
-    "LocalPlayerMixin"
+    "ElytraUtilitiesForgeLocalPlayerMixin"
   ],
   "injectors": {
     "defaultRequire": 1
-  },
-  "refmap": "${refmap_target}refmap.json"
+  }
 }

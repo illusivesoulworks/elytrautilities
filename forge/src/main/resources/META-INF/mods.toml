@@ -1,25 +1,26 @@
 modLoader="javafml"
-loaderVersion="[38,)"
-license="LGPL-3.0-or-later"
-logoFile="elytrautilities_icon.png"
+loaderVersion="[41,)"
+license="${license}"
 logoBlur=false
+issueTrackerURL="${issue_tracker}"
+logoFile="${mod_id}_icon.png"
 [[mods]]
-modId="elytrautilities"
+modId="${mod_id}"
 version="${version}"
-displayName="Elytra Utilities"
-authors="C4"
+displayName="${mod_name}"
+authors="${mod_author}"
 description='''
-A small collection of useful elytra controls such as easy takeoff and enabling/disabling elytras.
+${mod_description}
 '''
 [[dependencies.elytrautilities]]
     modId="forge"
     mandatory=true
-    versionRange="[38,)"
+    versionRange="${forge_version_range}"
     ordering="NONE"
     side="BOTH"
 [[dependencies.elytrautilities]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.18,1.19)"
+    versionRange="${forge_mc_version_range}"
     ordering="NONE"
     side="BOTH"
