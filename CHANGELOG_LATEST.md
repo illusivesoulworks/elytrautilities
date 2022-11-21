@@ -5,3 +5,4 @@ This is a copy of the changelog for the most recent version. For the full versio
 ## [2.0.1+1.19.2] - 2022.11.20
 ### Fixed
 - [Forge] Fixed startup crash
+gpg
