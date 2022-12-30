@@ -25,20 +25,20 @@ import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.util.text.TranslationTextComponent;
 import top.theillusivec4.elytrautilities.Constants;
 import top.theillusivec4.elytrautilities.ElytraUtilitiesMod;
+import top.theillusivec4.elytrautilities.common.ClientConfig;
 
 public class ClientFlightController {
 
-  private static boolean flightEnabled = true;
-
   public static boolean isFlightDisabled() {
-    return !flightEnabled;
+    return !ClientConfig.isElytraEnabled();
   }
 
   public static void toggleFlight(ClientPlayerEntity player) {
     TranslationTextComponent text;
-    flightEnabled = !flightEnabled;
+    boolean state = !ClientConfig.isElytraEnabled();
+    ClientConfig.setElytraEnabled(state);
 
-    if (flightEnabled) {
+    if (state) {
       text = new TranslationTextComponent(Constants.MOD_ID + ".enableFlight");
     } else {
       text = new TranslationTextComponent(Constants.MOD_ID + ".disableFlight");

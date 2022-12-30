@@ -35,7 +35,7 @@ import net.minecraft.util.MovementInput;
 import net.minecraft.util.ResourceLocation;
 import top.theillusivec4.elytrautilities.Constants;
 import top.theillusivec4.elytrautilities.ElytraUtilitiesMod;
-import top.theillusivec4.elytrautilities.common.ConfigReader;
+import top.theillusivec4.elytrautilities.common.ClientConfig;
 
 public class ClientEvents {
 
@@ -102,7 +102,7 @@ public class ClientEvents {
         cooldown--;
       }
 
-      if (ConfigReader.CLIENT.simpleTakeoff.get() && triggerFlightUse > 0) {
+      if (ClientConfig.canSimpleTakeoff() && triggerFlightUse > 0) {
 
         if (isTriggerKeyDown) {
           triggerFlightUse++;
@@ -131,7 +131,7 @@ public class ClientEvents {
 
   public static void renderIcon(MatrixStack poseStack) {
 
-    if (ConfigReader.CLIENT.toggleIcon.get() && ClientFlightController.isFlightDisabled()) {
+    if (ClientConfig.canRenderIcon() && ClientFlightController.isFlightDisabled()) {
       Minecraft.getInstance().getTextureManager().bind(DISABLED_ICON);
       AbstractGui.blit(poseStack, 2, 2, 0, 0, 24, 24, 24, 24);
     }
