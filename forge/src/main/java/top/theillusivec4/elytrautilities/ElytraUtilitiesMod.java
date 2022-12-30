@@ -21,8 +21,6 @@
 
 package top.theillusivec4.elytrautilities;
 
-import net.minecraft.client.entity.player.ClientPlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ExtensionPoint;
 import net.minecraftforge.fml.ModList;
@@ -30,9 +28,11 @@ import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.network.FMLNetworkConstants;
 import org.apache.commons.lang3.tuple.Pair;
+import top.theillusivec4.elytrautilities.common.network.NetworkHandler;
 import top.theillusivec4.elytrautilities.client.ClientEventsListener;
 import top.theillusivec4.elytrautilities.client.KeyRegistry;
 import top.theillusivec4.elytrautilities.common.CaelusPlugin;
@@ -41,23 +41,18 @@ import top.theillusivec4.elytrautilities.common.ConfigReader;
 @Mod(Constants.MOD_ID)
 public class ElytraUtilitiesMod {
 
-  private static boolean isCaelusLoaded = false;
-
   public ElytraUtilitiesMod() {
     IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+    modEventBus.addListener(this::setup);
     modEventBus.addListener(this::clientSetup);
     ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ConfigReader.CLIENT_SPEC);
     ModLoadingContext.get().registerExtensionPoint(ExtensionPoint.DISPLAYTEST,
         () -> Pair.of(() -> FMLNetworkConstants.IGNORESERVERONLY, (a, b) -> true));
-    isCaelusLoaded = ModList.get().isLoaded("caelus");
+    CaelusPlugin.isCaelusLoaded = ModList.get().isLoaded("caelus");
   }
 
-  public static boolean canFly(ClientPlayerEntity player) {
-
-    if (isCaelusLoaded) {
-      return CaelusPlugin.canFly(player);
-    }
-    return player.getItemBySlot(EquipmentSlotType.CHEST).canElytraFly(player);
+  private void setup(FMLCommonSetupEvent evt) {
+    NetworkHandler.register();
   }
 
   private void clientSetup(final FMLClientSetupEvent evt) {

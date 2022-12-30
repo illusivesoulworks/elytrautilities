@@ -27,15 +27,17 @@ import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Items;
-import net.minecraft.network.play.client.CEntityActionPacket;
 import net.minecraft.network.play.client.CPlayerTryUseItemPacket;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.Hand;
 import net.minecraft.util.MovementInput;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.network.PacketDistributor;
+import top.theillusivec4.elytrautilities.common.network.CPacketSetFlight;
+import top.theillusivec4.elytrautilities.common.network.NetworkHandler;
 import top.theillusivec4.elytrautilities.Constants;
-import top.theillusivec4.elytrautilities.ElytraUtilitiesMod;
-import top.theillusivec4.elytrautilities.common.ConfigReader;
+import top.theillusivec4.elytrautilities.common.CaelusPlugin;
+import top.theillusivec4.elytrautilities.common.ClientConfig;
 
 public class ClientEvents {
 
@@ -49,8 +51,7 @@ public class ClientEvents {
   private static int triggerFlightUse = 0;
 
   private static void startFlight(ClientPlayerEntity player) {
-    player.connection.send(
-        new CEntityActionPacket(player, CEntityActionPacket.Action.START_FALL_FLYING));
+    NetworkHandler.INSTANCE.send(PacketDistributor.SERVER.noArg(), new CPacketSetFlight());
     triggerJump = false;
     triggerFlight = false;
     triggerFlightUse++;
@@ -80,7 +81,7 @@ public class ClientEvents {
       final boolean canFly = !ClientFlightController.isFlightDisabled() &&
           !player.abilities.flying && !player.isPassenger() && !player.onClimbable() &&
           !player.isFallFlying() && !player.isInWater() &&
-          !player.hasEffect(Effects.LEVITATION) && ElytraUtilitiesMod.canFly(player);
+          !player.hasEffect(Effects.LEVITATION) && CaelusPlugin.canFly(player);
 
       if (canFly) {
 
@@ -102,7 +103,7 @@ public class ClientEvents {
         cooldown--;
       }
 
-      if (ConfigReader.CLIENT.simpleTakeoff.get() && triggerFlightUse > 0) {
+      if (ClientConfig.canSimpleTakeoff() && triggerFlightUse > 0) {
 
         if (isTriggerKeyDown) {
           triggerFlightUse++;
@@ -131,7 +132,7 @@ public class ClientEvents {
 
   public static void renderIcon(MatrixStack poseStack) {
 
-    if (ConfigReader.CLIENT.toggleIcon.get() && ClientFlightController.isFlightDisabled()) {
+    if (ClientConfig.canRenderIcon() && ClientFlightController.isFlightDisabled()) {
       Minecraft.getInstance().getTextureManager().bind(DISABLED_ICON);
       AbstractGui.blit(poseStack, 2, 2, 0, 0, 24, 24, 24, 24);
     }

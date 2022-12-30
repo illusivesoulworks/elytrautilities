@@ -21,18 +21,28 @@
 
 package top.theillusivec4.elytrautilities.common;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import top.theillusivec4.caelus.api.CaelusApi;
+import top.theillusivec4.elytrautilities.common.ConfigReader;
 
-public class CaelusPlugin {
+public class ClientConfig {
 
-  public static boolean isCaelusLoaded = false;
-
-  public static boolean canFly(final LivingEntity livingEntity) {
-    if (isCaelusLoaded) {
-      return CaelusApi.canElytraFly(livingEntity);
+    public static boolean canSimpleTakeoff() {
+        return ConfigReader.CLIENT.simpleTakeoff.get();
     }
-    return livingEntity.getItemBySlot(EquipmentSlotType.CHEST).canElytraFly(livingEntity);
-  }
+
+    public static boolean canRenderIcon() {
+        return ConfigReader.CLIENT.toggleIcon.get();
+    }
+
+    public static boolean isJumpTriggerable() {
+        return ConfigReader.CLIENT.jumpTriggerable.get();
+    }
+
+    public static boolean isElytraEnabled() {
+        return ConfigReader.CLIENT.enableElytra.get();
+    }
+
+    public static void setElytraEnabled(boolean state) {
+        ConfigReader.CLIENT.enableElytra.set(state);
+        ConfigReader.CLIENT.enableElytra.save();
+    }
 }
