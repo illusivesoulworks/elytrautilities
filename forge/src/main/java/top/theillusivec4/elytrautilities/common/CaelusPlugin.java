@@ -22,11 +22,17 @@
 package top.theillusivec4.elytrautilities.common;
 
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.inventory.EquipmentSlotType;
 import top.theillusivec4.caelus.api.CaelusApi;
 
 public class CaelusPlugin {
 
+  public static boolean isCaelusLoaded = false;
+
   public static boolean canFly(final LivingEntity livingEntity) {
-    return CaelusApi.canElytraFly(livingEntity);
+    if (isCaelusLoaded) {
+      return CaelusApi.canElytraFly(livingEntity);
+    }
+    return livingEntity.getItemBySlot(EquipmentSlotType.CHEST).canElytraFly(livingEntity);
   }
 }
