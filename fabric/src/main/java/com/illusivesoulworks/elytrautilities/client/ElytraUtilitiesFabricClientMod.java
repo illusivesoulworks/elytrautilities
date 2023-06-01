@@ -18,18 +18,29 @@
 package com.illusivesoulworks.elytrautilities.client;
 
 import com.illusivesoulworks.elytrautilities.ElytraUtilitiesMod;
+import com.illusivesoulworks.spectrelib.config.SpectreConfigInitializer;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 
-public class ElytraUtilitiesFabricClientMod implements ClientModInitializer {
+public class ElytraUtilitiesFabricClientMod implements ClientModInitializer,
+    SpectreConfigInitializer {
 
   @Override
   public void onInitializeClient() {
-    ElytraUtilitiesMod.setup();
     KeyRegistry.setup();
     ClientTickEvents.END_WORLD_TICK.register(world -> ClientEvents.clientTick());
     HudRenderCallback.EVENT.register(
         (matrixStack, tickDelta) -> ClientEvents.renderIcon(matrixStack));
+  }
+
+  @Override
+  public void onInitialize() {
+    // NO-OP
+  }
+
+  @Override
+  public void onInitializeConfig() {
+    ElytraUtilitiesMod.setup();
   }
 }

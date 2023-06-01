@@ -12,9 +12,12 @@
   },
   "license": "${license}",
   "icon": "${mod_id}_icon.png",
-  "environment": "*",
+  "environment": "client",
   "entrypoints": {
     "client": [
+      "com.illusivesoulworks.elytrautilities.client.ElytraUtilitiesFabricClientMod"
+    ],
+    "spectrelib": [
       "com.illusivesoulworks.elytrautilities.client.ElytraUtilitiesFabricClientMod"
     ]
   },
