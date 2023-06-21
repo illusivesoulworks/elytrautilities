@@ -17,15 +17,12 @@
 
 package com.illusivesoulworks.elytrautilities.client;
 
-import com.illusivesoulworks.elytrautilities.ElytraUtilitiesMod;
-import com.illusivesoulworks.spectrelib.config.SpectreConfigInitializer;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.qsl.base.api.entrypoint.client.ClientModInitializer;
 import org.quiltmc.qsl.lifecycle.api.client.event.ClientTickEvents;
 
-public class ElytraUtilitiesQuiltClientMod implements ClientModInitializer,
-    SpectreConfigInitializer {
+public class ElytraUtilitiesQuiltClientMod implements ClientModInitializer {
 
   @Override
   public void onInitializeClient(ModContainer modContainer) {
@@ -33,10 +30,5 @@ public class ElytraUtilitiesQuiltClientMod implements ClientModInitializer,
     ClientTickEvents.END.register(world -> ClientEvents.clientTick());
     HudRenderCallback.EVENT.register(
         (matrixStack, tickDelta) -> ClientEvents.renderIcon(matrixStack));
-  }
-
-  @Override
-  public void onInitializeConfig(ModContainer modContainer) {
-    ElytraUtilitiesMod.setup();
   }
 }

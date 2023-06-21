@@ -48,7 +48,7 @@ public class ClientEventsListener {
   public void onRenderGameOverlay(final RenderGuiOverlayEvent.Post evt) {
 
     if (evt.getOverlay() == VanillaGuiOverlay.POTION_ICONS.type()) {
-      ClientEvents.renderIcon(evt.getPoseStack());
+      ClientEvents.renderIcon(evt.getGuiGraphics());
     }
   }
 }

@@ -10,7 +10,7 @@
         "com.illusivesoulworks.elytrautilities.client.ElytraUtilitiesQuiltClientMod"
       ],
       "spectrelib": [
-        "com.illusivesoulworks.elytrautilities.client.ElytraUtilitiesQuiltClientMod"
+        "com.illusivesoulworks.elytrautilities.ElytraUtilitiesConfigInitializer"
       ]
     },
     "depends": [

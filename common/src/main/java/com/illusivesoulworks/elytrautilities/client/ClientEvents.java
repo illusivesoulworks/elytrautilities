@@ -20,10 +20,8 @@ package com.illusivesoulworks.elytrautilities.client;
 import com.illusivesoulworks.elytrautilities.ElytraUtilitiesConstants;
 import com.illusivesoulworks.elytrautilities.config.ElytraUtilitiesConfig;
 import com.illusivesoulworks.elytrautilities.platform.Services;
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.Input;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.protocol.game.ServerboundPlayerCommandPacket;
@@ -55,7 +53,7 @@ public class ClientEvents {
 
   public static void triggerFlight(Player player, Input input) {
 
-    if (player.isOnGround() && triggerJump) {
+    if (player.onGround() && triggerJump) {
       input.jumping = true;
       triggerJump = false;
       triggerFlight = true;
@@ -84,14 +82,14 @@ public class ClientEvents {
 
         if (isTriggerKeyDown && !triggerJump) {
 
-          if (!player.isOnGround()) {
+          if (!player.onGround()) {
             startFlight(player);
           } else {
             triggerJump = true;
           }
         }
 
-        if (triggerFlight && !player.isOnGround() && !player.isFallFlying()) {
+        if (triggerFlight && !player.onGround() && !player.isFallFlying()) {
           startFlight(player);
         }
       }
@@ -127,13 +125,12 @@ public class ClientEvents {
     }
   }
 
-  public static void renderIcon(PoseStack poseStack) {
+  public static void renderIcon(GuiGraphics guiGraphics) {
 
     if (ElytraUtilitiesConfig.CLIENT_SPEC.isLoaded() &&
         ElytraUtilitiesConfig.CLIENT.toggleIcon.get() &&
         ClientFlightController.isFlightDisabled()) {
-      RenderSystem.setShaderTexture(0, DISABLED_ICON);
-      GuiComponent.blit(poseStack, 2, 2, 0, 0, 24, 24, 24, 24);
+      guiGraphics.blit(DISABLED_ICON, 2, 2, 0, 0, 24, 24, 24, 24);
     }
   }
 }
