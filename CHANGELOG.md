@@ -3,6 +3,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [2.2.0+1.20.1] - 2023.06.22
+### Added
+- Added `restrictFireworks` configuration option to restrict using firework rockets unless the player is fall flying [#2](https://github.com/illusivesoulworks/elytrautilities/issues/2)
+### Changed
+- updated to Minecraft 1.20.1
+
 ## [2.1.0+1.19.4] - 2023.06.04
 ### Added
 - Added Quilt support
