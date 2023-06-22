@@ -3,5 +3,13 @@
   "elytrautilities.disableFlight": "Elytra Flight Disabled",
   "key.elytrautilities.category": "Elytra Utilities",
   "key.elytrautilities.toggle.desc": "Toggle Elytra Flight",
-  "key.elytrautilities.trigger.desc": "Trigger Elytra Flight"
+  "key.elytrautilities.trigger.desc": "Trigger Elytra Flight",
+  "gui.elytrautilities.config.toggleIcon.name": "Show toggle icon",
+  "gui.elytrautilities.config.toggleIcon.description": "If enabled, an icon appears on the HUD when fall flying is disabled.",
+  "gui.elytrautilities.config.simpleTakeoff.name": "Simple firework takeoff",
+  "gui.elytrautilities.config.simpleTakeoff.description": "If enabled, holding down the \"Trigger Elytra\" key uses a firework from inventory to takeoff.",
+  "gui.elytrautilities.config.enableElytra.name": "Allow fall flying",
+  "gui.elytrautilities.config.enableElytra.description": "If enabled, players can fall fly. This can also be managed in-game through the \"Toggle Elytra\" key.",
+  "gui.elytrautilities.config.jumpTriggerable.name": "Midair jump fall flying",
+  "gui.elytrautilities.config.jumpTriggerable.description": "If enabled, fall flying can be activated by jumping in midair."
 }

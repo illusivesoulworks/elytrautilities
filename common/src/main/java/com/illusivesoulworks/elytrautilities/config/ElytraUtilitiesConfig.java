@@ -42,22 +42,18 @@ public class ElytraUtilitiesConfig {
     public final SpectreConfigSpec.BooleanValue jumpTriggerable;
 
     Client(SpectreConfigSpec.Builder builder) {
-      builder.comment("Client only settings").push("client");
-
       toggleIcon = builder.comment(
-              "Set to true to enable an icon that appears on the HUD when elytra flight is disabled")
+              "If enabled, an icon appears on the HUD when fall flying is disabled.")
           .translation(CONFIG_PREFIX + "toggleIcon").define("toggleIcon", true);
       simpleTakeoff = builder.comment(
-              "Set to true to enable holding down the Trigger Elytra keybind to automatically use a firework from inventory to takeoff from ground level")
+              "If enabled, holding down the \"Trigger Elytra\" key uses a firework from inventory to takeoff.")
           .translation(CONFIG_PREFIX + "simpleTakeoff").define("simpleTakeoff", true);
       enableElytra = builder.comment(
-              "Set to true to enable elytra flight as normal, false to disable elytra flight. This can also be managed in-game through the \"Toggle Elytra\" keybinding.")
+              "If enabled, players can fall fly. This can also be managed in-game through the \"Toggle Elytra\" key.")
           .translation(CONFIG_PREFIX + "enableElytra").define("enableElytra", true);
       jumpTriggerable = builder.comment(
-              "Set to true to enable jump triggering the elytra while falling as normal, false to disable.")
+              "If enabled, fall flying can be activated by jumping in midair.")
           .translation(CONFIG_PREFIX + "jumpTriggerable").define("jumpTriggerable", true);
-
-      builder.pop();
     }
   }
 }

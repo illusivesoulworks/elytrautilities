@@ -35,7 +35,7 @@ public class ElytraUtilitiesForgeLocalPlayerMixin {
           opcode = Opcodes.GETFIELD,
           ordinal = 2),
       method = "aiStep",
-      ordinal = 5)
+      ordinal = 7)
   private boolean elytrautilities$aiStep(boolean flag7) {
 
     if (ClientFlightController.isFlightDisabled() ||
