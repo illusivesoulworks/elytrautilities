@@ -20,6 +20,8 @@ package com.illusivesoulworks.elytrautilities.client;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
+import net.fabricmc.fabric.api.event.player.UseBlockCallback;
+import net.minecraft.world.InteractionResult;
 
 public class ElytraUtilitiesFabricClientMod implements ClientModInitializer {
 
@@ -29,5 +31,12 @@ public class ElytraUtilitiesFabricClientMod implements ClientModInitializer {
     ClientTickEvents.END_WORLD_TICK.register(world -> ClientEvents.clientTick());
     HudRenderCallback.EVENT.register(
         (matrixStack, tickDelta) -> ClientEvents.renderIcon(matrixStack));
+    UseBlockCallback.EVENT.register((player, world, hand, hitResult) -> {
+
+      if (ClientEvents.restrictFirework(player, player.getItemInHand(hand).getItem())) {
+        return InteractionResult.FAIL;
+      }
+      return InteractionResult.PASS;
+    });
   }
 }

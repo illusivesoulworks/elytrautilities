@@ -22,6 +22,7 @@ import net.minecraftforge.client.event.RenderGuiOverlayEvent;
 import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 @SuppressWarnings("unused")
@@ -36,6 +37,14 @@ public class ClientEventsListener {
 
     if (evt.phase == TickEvent.Phase.END) {
       ClientEvents.clientTick();
+    }
+  }
+
+  @SubscribeEvent
+  public void rightClick(final PlayerInteractEvent.RightClickBlock evt) {
+
+    if (ClientEvents.restrictFirework(evt.getEntity(), evt.getItemStack().getItem())) {
+      evt.setCanceled(true);
     }
   }
 

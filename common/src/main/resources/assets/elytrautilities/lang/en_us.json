@@ -11,5 +11,7 @@
   "gui.elytrautilities.config.enableElytra.name": "Allow fall flying",
   "gui.elytrautilities.config.enableElytra.description": "If enabled, players can fall fly. This can also be managed in-game through the \"Toggle Elytra\" key.",
   "gui.elytrautilities.config.jumpTriggerable.name": "Midair jump fall flying",
-  "gui.elytrautilities.config.jumpTriggerable.description": "If enabled, fall flying can be activated by jumping in midair."
+  "gui.elytrautilities.config.jumpTriggerable.description": "If enabled, fall flying can be activated by jumping in midair.",
+  "gui.elytrautilities.config.restrictFireworks.name": "Restrict firework rockets",
+  "gui.elytrautilities.config.restrictFireworks.description": "f enabled, firework rockets can only be used while fall flying."
 }

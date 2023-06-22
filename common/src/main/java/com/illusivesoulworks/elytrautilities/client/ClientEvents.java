@@ -30,6 +30,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.FireworkRocketItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
 public class ClientEvents {
@@ -58,6 +60,11 @@ public class ClientEvents {
       triggerJump = false;
       triggerFlight = true;
     }
+  }
+
+  public static boolean restrictFirework(Player player, Item item) {
+    return item instanceof FireworkRocketItem &&
+        ElytraUtilitiesConfig.CLIENT.restrictFireworks.get() && !player.isFallFlying();
   }
 
   public static void clientTick() {

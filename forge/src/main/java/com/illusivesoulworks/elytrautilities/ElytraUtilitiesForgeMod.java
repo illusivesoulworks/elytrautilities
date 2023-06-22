@@ -20,6 +20,7 @@ package com.illusivesoulworks.elytrautilities;
 import com.illusivesoulworks.elytrautilities.client.ClientEventsListener;
 import com.illusivesoulworks.elytrautilities.client.KeyRegistry;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.IExtensionPoint;
 import net.minecraftforge.fml.ModList;

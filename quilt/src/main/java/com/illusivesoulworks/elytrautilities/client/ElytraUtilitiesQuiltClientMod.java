@@ -18,6 +18,8 @@
 package com.illusivesoulworks.elytrautilities.client;
 
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
+import net.fabricmc.fabric.api.event.player.UseBlockCallback;
+import net.minecraft.world.InteractionResult;
 import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.qsl.base.api.entrypoint.client.ClientModInitializer;
 import org.quiltmc.qsl.lifecycle.api.client.event.ClientTickEvents;
@@ -30,5 +32,12 @@ public class ElytraUtilitiesQuiltClientMod implements ClientModInitializer {
     ClientTickEvents.END.register(world -> ClientEvents.clientTick());
     HudRenderCallback.EVENT.register(
         (matrixStack, tickDelta) -> ClientEvents.renderIcon(matrixStack));
+    UseBlockCallback.EVENT.register((player, world, hand, hitResult) -> {
+
+      if (ClientEvents.restrictFirework(player, player.getItemInHand(hand).getItem())) {
+        return InteractionResult.FAIL;
+      }
+      return InteractionResult.PASS;
+    });
   }
 }

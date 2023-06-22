@@ -40,6 +40,7 @@ public class ElytraUtilitiesConfig {
     public final SpectreConfigSpec.BooleanValue simpleTakeoff;
     public final SpectreConfigSpec.BooleanValue enableElytra;
     public final SpectreConfigSpec.BooleanValue jumpTriggerable;
+    public final SpectreConfigSpec.BooleanValue restrictFireworks;
 
     Client(SpectreConfigSpec.Builder builder) {
       toggleIcon = builder.comment(
@@ -54,6 +55,9 @@ public class ElytraUtilitiesConfig {
       jumpTriggerable = builder.comment(
               "If enabled, fall flying can be activated by jumping in midair.")
           .translation(CONFIG_PREFIX + "jumpTriggerable").define("jumpTriggerable", true);
+      restrictFireworks = builder.comment(
+              "If enabled, firework rockets can only be used while fall flying.")
+          .translation(CONFIG_PREFIX + "restrictFireworks").define("restrictFireworks", false);
     }
   }
 }
