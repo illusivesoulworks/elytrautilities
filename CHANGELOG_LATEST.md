@@ -2,8 +2,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 This is a copy of the changelog for the most recent version. For the full version history, go [here](https://github.com/illusivesoulworks/elytrautilities/blob/1.20.x/CHANGELOG.md).
 
-## [2.2.0+1.20.1] - 2023.06.22
-### Added
-- Added `restrictFireworks` configuration option to restrict using firework rockets unless the player is fall flying [#2](https://github.com/illusivesoulworks/elytrautilities/issues/2)
+## [2.2.1+1.20.1] - 2023.10.24
 ### Changed
-- updated to Minecraft 1.20.1
+- Updated to SpectreLib 0.13.14
+- [Fabric] Requires Fabric Loader >=0.14.23
